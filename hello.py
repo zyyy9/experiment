@@ -1,2 +1,2 @@
-x=not True
-print(x)
+a=2
+print(a*3)

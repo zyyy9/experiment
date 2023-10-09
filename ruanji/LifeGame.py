@@ -18,24 +18,24 @@ class LifeGame(object):
 
     def create_buttons(self):
         # 创建主应用程序的根窗口
-        self.root = tk.Tk()
-
-        # 创建开始按钮
-        self.start_button = tk.Button(self.root, text="开始", command=self.start_game)
-        self.start_button.pack()
-
-        # 创建暂停按钮
-        self.pause_button = tk.Button(self.root, text="暂停", command=self.pause_game)
-        self.pause_button.pack()
-        self.pause_button.config(state=tk.DISABLED)  # 初始状态下禁用
-
+        self.root = self.mapp.root
+        self.button_frame = tk.Frame(self.root)
+        self.button_frame.pack(side="bottom", fill="x")
         # 创建重置按钮
-        self.reset_button = tk.Button(self.root, text="重置", command=self.reset_game)
-        self.reset_button.pack()
+        self.reset_button = tk.Button(self.button_frame, text="重置", command=self.reset_game)
+        self.reset_button.pack(side="right", padx=10, pady=10)
         self.reset_button.config(state=tk.DISABLED)  # 初始状态下禁用
 
-        # 启动主应用程序的事件循环
-        self.root.mainloop()
+        # 创建暂停按钮
+        self.pause_button = tk.Button(self.button_frame, text="暂停", command=self.pause_game)
+        self.pause_button.pack(side="right", padx=10, pady=10)
+        self.pause_button.config(state=tk.DISABLED)  # 初始状态下禁用
+
+        # 创建开始按钮
+        self.start_button = tk.Button(self.button_frame, text="开始", command=self.start_game)
+        self.start_button.pack(side="right", padx=10, pady=10)
+        self.start_button.config(state=tk.DISABLED)  # 初始状态下禁用
+
 
     def game_cycle(self):
         new_grid = [[0] * self.mapp.cols for _ in range(self.mapp.rows)]
@@ -81,5 +81,5 @@ class LifeGame(object):
         self.reset_button.config(state=tk.DISABLED)
 
 
-st = LifeGame(50, 50, 0.3)
+st = LifeGame(20, 20, 0.3)
 st.mapp.root.mainloop()

@@ -30,7 +30,7 @@ class GameMap(object):
         res = 0
         for m in range(row - 1, row + 2):
             for n in range(col - 1, col + 2):
-                if self.grid[m][n] == 1:
+                if (m != row or n != col) and self.grid[m][n] == 1:
                     res += 1
         return res
 

@@ -24,6 +24,8 @@ class GameMap(object):
                     rnd = random.random()
                     if rnd > 1 - life_ratio:
                         self.grid[row][col] = 1
+                    else:
+                        self.grid[row][col] = 0
 
     def get_neighbor_count(self, row, col):
         """地图上一个方格周围活细胞数是游戏逻辑里的重要数据"""

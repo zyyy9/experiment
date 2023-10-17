@@ -1,5 +1,6 @@
 from unittest import TestCase
 from LifeGame import LifeGame
+from unittest.mock import patch
 
 
 class TestLifeGame(TestCase):
@@ -8,7 +9,7 @@ class TestLifeGame(TestCase):
 
     def test_game_cycle(self):
         self.life_game.game_cycle()
-        self.assertEqual([[1, 0, 1],[0, 0, 0],[1, 0, 1]], [row[1:4] for row in self.life_game.mapp.grid[1:4]])
+        self.assertEqual([[1, 0, 1], [0, 0, 0], [1, 0, 1]], [row[1:4] for row in self.life_game.mapp.grid[1:4]])
 
     def test_check_stability(self):
         # Mock the grid_set to contain the current_state
@@ -26,3 +27,26 @@ class TestLifeGame(TestCase):
     def test_check_stability1(self):
         self.life_game.grid_set.clear()
         self.assertFalse(self.life_game.check_stability())
+
+    def test_start_game(self):
+        with patch.object(self.life_game.game_timer, "trigger") as trigger_mock:
+            self.life_game.start_game()
+            self.assertTrue(self.life_game.game_timer.running)
+            self.life_game.game_timer.stop()
+            self.assertEqual(self.life_game.start_button["state"], "disabled")
+            self.assertEqual(self.life_game.pause_button["state"], "normal")
+            self.assertEqual(self.life_game.reset_button["state"], "normal")
+
+    def test_pause_game(self):
+        self.life_game.pause_game()
+        self.assertFalse(self.life_game.game_timer.running)
+        self.assertEqual(self.life_game.start_button["state"], "normal")
+        self.assertEqual(self.life_game.pause_button["state"], "disabled")
+        self.assertEqual(self.life_game.reset_button["state"], "normal")
+
+    def test_reset_game(self):
+        self.life_game.reset_game()
+        self.assertFalse(self.life_game.game_timer.running)
+        self.assertEqual(self.life_game.start_button["state"], "normal")
+        self.assertEqual(self.life_game.pause_button["state"], "disabled")
+        self.assertEqual(self.life_game.reset_button["state"], "disabled")

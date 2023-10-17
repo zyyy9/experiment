@@ -26,7 +26,7 @@ class TestGameMap(TestCase):
     def test_get_set(self):
         self.assertEqual(0, self.game_map.get(0, 1))
         self.game_map.set(0, 1, 1)
-        self.assertEqual(0, self.game_map.get(0, 1))
+        self.assertEqual(1, self.game_map.get(0, 1))
 
     def test_get_neighbor_count(self):
         expected_value = [[8] * 5] * 5

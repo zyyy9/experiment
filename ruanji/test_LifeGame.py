@@ -1,8 +1,5 @@
 from unittest import TestCase
 from LifeGame import LifeGame
-from GameMap import GameMap
-from unittest.mock import Mock
-import tkinter as tk
 
 
 class TestLifeGame(TestCase):

@@ -1,3 +1,4 @@
+import unittest
 from unittest import TestCase
 from GameMap import GameMap
 
@@ -21,6 +22,7 @@ class TestGameMap(TestCase):
         # 测试重置后的地图是否都是活细胞
         self.game_map.reset(1.0)
         live_cells = sum(row.count(1) for row in self.game_map.grid)
+        self.game_map.visualize()
         self.assertEqual(live_cells, 64)
 
     def test_get_set(self):
@@ -35,3 +37,5 @@ class TestGameMap(TestCase):
             for j in range(1, 4):
                 self.assertEqual(expected_value[i][j], (self.game_map.get_neighbor_count(i ,j)), '(%d, %d)'%(i ,j))
 
+if __name__ == '__main__':
+    unittest.main()

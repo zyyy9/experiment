@@ -11,6 +11,7 @@ class LifeGame(object):
         self.game_timer = GameTimer.GameTimer(self.game_cycle, interval=0.1)  # 创建定时器，每3秒执行一次游戏循环
         self.create_buttons()  # 创建开始、暂停和重置按钮
         self.grid_set = set()
+        self.grid_set.add(tuple(tuple(row) for row in self.mapp.grid))
 
 
     def create_buttons(self):

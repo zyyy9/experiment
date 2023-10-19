@@ -1,3 +1,4 @@
+import unittest
 from unittest import TestCase
 from LifeGame import LifeGame
 from unittest.mock import patch
@@ -5,11 +6,15 @@ from unittest.mock import patch
 
 class TestLifeGame(TestCase):
     def setUp(self):
-        self.life_game = LifeGame(5, 5, 1)
+        self.life_game = LifeGame(5, 5, 0)
 
     def test_game_cycle(self):
+        for i in range(1, 4):
+            self.life_game.mapp.grid[2][i] = 1
+        self.life_game.grid_set.add(tuple(tuple(row) for row in self.life_game.mapp.grid))
+        self.life_game.game_timer.running = True
         self.life_game.game_cycle()
-        self.assertEqual([[1, 0, 1], [0, 0, 0], [1, 0, 1]], [row[1:4] for row in self.life_game.mapp.grid[1:4]])
+        self.assertEqual([[0, 1, 0], [0, 1, 0], [0, 1, 0]], [row[1:4] for row in self.life_game.mapp.grid[1:4]])
 
     def test_check_stability(self):
         # Mock the grid_set to contain the current_state
@@ -50,3 +55,6 @@ class TestLifeGame(TestCase):
         self.assertEqual(self.life_game.start_button["state"], "normal")
         self.assertEqual(self.life_game.pause_button["state"], "disabled")
         self.assertEqual(self.life_game.reset_button["state"], "disabled")
+
+if __name__ == '__main__':
+    unittest.main()
